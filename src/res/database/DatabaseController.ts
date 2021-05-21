@@ -1,4 +1,4 @@
-import { Client, Snowflake, User } from 'discord.js';
+import { Snowflake } from 'discord.js';
 import sqlite3, { Database } from 'sqlite3';
 
 let db: Database;

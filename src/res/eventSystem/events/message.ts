@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import HugoClient from "../../objects/HugoClient";
 import Logger from "../../tools/Logger";
-const logger = new Logger(`Command`)
+const logger = new Logger(`Event`)
 //loading environmental variables
 import dotenv from 'dotenv'
 dotenv.config({ path:'././././config.env'})

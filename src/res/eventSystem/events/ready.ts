@@ -1,5 +1,5 @@
 import Logger from "../../tools/Logger";
-const logger = new Logger(`Bot`)
+const logger = new Logger(`Event`)
 
 
 export default function execute() {
