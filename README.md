@@ -1,0 +1,2 @@
+# HugoBot
+## A discord Bot
