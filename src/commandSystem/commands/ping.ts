@@ -6,12 +6,13 @@ const logger = new Logger("Command");
 const command = new HugoCommand("ping", ["ping", "ping", "Ping"], "Ping!");
 
 command.execute = (message) => {
-  return new Promise<void>(() => {
+  return new Promise<boolean>((resolve) => {
     //constructing reply
     const reply = "pong";
     //sending response
     message.reply(reply);
     logger.log("Command sucessfully executed");
+    resolve(true);
   });
 };
 

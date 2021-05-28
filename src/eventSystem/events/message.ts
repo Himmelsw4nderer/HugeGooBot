@@ -38,10 +38,11 @@ export default async function execute(message: Message) {
         //for each trigger in the command
         for (const trigger of command.trigger) {
           //if the content starts with the command
-          if (content == trigger) {
+          if (content.startsWith(trigger)) {
             //executing the command function
             logger.log(`Executing ${command.name} command`);
-            command.execute(message);
+            //deleating the message
+            if (await command.execute(message, content)) message.delete();
             //ending looking for the command
             break;
           }

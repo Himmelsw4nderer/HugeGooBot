@@ -15,7 +15,11 @@ export default class HugoCommand {
   }
 
   //this function will execute when command is triggerd
-  async execute(message: Message): Promise<void> {
-    message.reply("This command has no specified function yet");
+  async execute(message: Message, content?: string): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      //sending message if their is no edited command yet
+      message.reply("This command has no specified function yet");
+      resolve(true);
+    });
   }
 }

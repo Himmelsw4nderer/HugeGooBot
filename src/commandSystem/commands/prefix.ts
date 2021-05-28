@@ -1,5 +1,6 @@
 import DatabaseController from "../../database/DatabaseController";
 import HugoCommand from "../../objects/HugoCommand";
+import HugoMusicController from "../../objects/HugoMusicController";
 import Logger from "../../tools/Logger";
 const logger = new Logger("Command");
 
@@ -11,7 +12,7 @@ const command = new HugoCommand(
 );
 
 command.execute = (message) => {
-  return new Promise<void>(async () => {
+  return new Promise<boolean>(async (resolve) => {
     const server = await DatabaseController.getServerById(
       message.guild?.id ?? ""
     );
@@ -21,6 +22,7 @@ command.execute = (message) => {
     //sending response
     message.reply(reply);
     logger.log("Command sucessfully executed");
+    resolve(true);
   });
 };
 

@@ -51,7 +51,7 @@ function mapCommands(commands: HugoCommand[]): string[] {
 }
 
 command.execute = (message) => {
-  return new Promise<void>(() => {
+  return new Promise<boolean>((resolve) => {
     const client = HugoClient;
     let time: number = 0;
     //callculating uptime while checking if client is not null
@@ -82,6 +82,7 @@ command.execute = (message) => {
     //replying
     message.reply(reply);
     logger.log("Command sucessfully executed");
+    resolve(true)
   });
 };
 

@@ -14,4 +14,5 @@ Promise.all([registerCommands(), registerEvents()]).then(() => {
   HugoClient.login(process.env.DISCORD_TOKEN).then(() => {
     logger.log("Connected to Discord api");
   });
+  //HugoClient.on("debug", console.log);
 });

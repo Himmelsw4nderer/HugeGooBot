@@ -13,13 +13,13 @@ const command = new HugoCommand(
   "Changes the prefix of the server"
 );
 
-command.execute = (message) => {
-  return new Promise<void>(async () => {
+command.execute = (message, content) => {
+  return new Promise<boolean>(async (resolve) => {
     //check if member has the permision admin
     if (message.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
-      if (message.content.split("").length < 2) notMatchGuidelines(message, "");
+      if (content?.split(" ").length ?? 0 < 1) notMatchGuidelines(message, "");
       //getting the new prefix out of the command
-      const newPrefix = message.content.split(" ")[2];
+      const newPrefix = content?.split(" ")[1] ?? "";
       //if the new Prefix matches the
       const regex = new RegExp(`[&.,!"§$%&/()=?*'+#~_:;°^]\S{0,2}`);
       if (regex.test(newPrefix)) {
@@ -29,12 +29,15 @@ command.execute = (message) => {
         );
         message.reply(`Successfully changed the prefix to ${newPrefix}`);
         logger.log(`Changed prefix of a guild to ${newPrefix}`);
+        resolve(true);
       } else {
         notMatchGuidelines(message, newPrefix);
+        resolve(false);
       }
     } else {
       message.reply(noPermissions());
       logger.log("User has not enough permissions");
+      resolve(false);
     }
   });
 };
