@@ -7,5 +7,6 @@ const commands: string[] = [
   "music/play",
   "music/leave",
   "music/skip",
+  "music/remove",
 ];
 export default commands;

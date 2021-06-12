@@ -1,6 +1,6 @@
 import HugoClient from "../../../objects/HugoClient";
 import HugoCommand from "../../../objects/HugoCommand";
-import HugoMusicController from "../../../objects/HugoMusicController";
+import HugoMusicController from "../../../objects/music/HugoMusicController";
 import Logger from "../../../tools/Logger";
 const logger = new Logger("Command");
 

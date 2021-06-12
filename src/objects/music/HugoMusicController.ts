@@ -1,17 +1,24 @@
-import { GuildMember, TextChannel, VoiceChannel, Permissions, User } from "discord.js";
+import {
+  GuildMember,
+  TextChannel,
+  VoiceChannel,
+  Permissions,
+} from "discord.js";
 import HugoMusicPlayer from "./HugoMusicPlayer";
-import Logger from "../tools/Logger";
+import Logger from "../../tools/Logger";
+import YouTube from "youtube-sr";
 import HugoMusicSong from "./HugoMusicSong";
-import Youtube from "youtube.ts";
 const logger = new Logger("MusicController");
 
 import dotenv from "dotenv";
 dotenv.config({ path: "./src/config.env" });
-const youtube = new Youtube(process.env.GOOGLE_API_KEY ?? "");
 
 let players: HugoMusicPlayer[] = new Array();
 
 class HugoMusicController {
+  constructor(){
+  }
+  
   async play(
     channel: VoiceChannel,
     songString: string,
@@ -19,21 +26,15 @@ class HugoMusicController {
     textchannel: TextChannel
   ) {
     //searching on youtube for the video
-    const searchResult = (
-      await youtube.videos.search({
-        part: "snippet",
-        q: songString,
-        maxResults: 1,
-      })
-    ).items[0];
+    const searchResult = await YouTube.searchOne(songString, "video" );
     //parsing the searchresult
     const song: HugoMusicSong = new HugoMusicSong(
-      searchResult.id.videoId,
-      searchResult.snippet.title,
-      searchResult.snippet.channelTitle,
+      searchResult.id ?? "",
+      searchResult.title ?? "",
+      searchResult.channel?.name ?? "",
       memberId
     );
-    //the id of the guild
+    //the id of the guil
     const guildId = channel.guild.id;
     //the player of the server
     let player = this.getPlayer(guildId);
@@ -50,12 +51,12 @@ class HugoMusicController {
     }
   }
 
-  async skip(member: GuildMember | null, guildId: string) : Promise<boolean>{
+  async skip(member: GuildMember | null, guildId: string): Promise<boolean> {
     return new Promise<boolean>(async (resolve) => {
       //get the player of thee server
       const player = this.getPlayer(guildId);
       //get the song from the player
-      const song = player?.getSong();
+      const song = player?.getCurrentSong();
       //if there is a song
       if (song && member) {
         //if the member is admin or suggested the song
@@ -73,19 +74,46 @@ class HugoMusicController {
     });
   }
 
+  async remove(member: GuildMember | null, guildId: string, pos: number) {
+    return new Promise<boolean>(async (resolve) => {
+      logger.debug(pos);
+      //skipping if index is 0
+      if (pos == 0) {
+        resolve(this.skip(member, guildId));
+        return;
+      }
+      //pos -- to get the value from the arraylist
+      pos--;
+      logger.debug(pos);
+      //get the player of thee server
+      const player = this.getPlayer(guildId);
+      if (player) {
+        if (
+          member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR) ||
+          player.getSong(pos)?.memberId == member?.id
+        ) {
+          player.removeSong(pos);
+          resolve (true);
+          return
+        }
+      }
+      resolve(false)
+    });
+  }
+
   async addPlayer(channel: VoiceChannel, textchannel: TextChannel) {
     //joining the voice channel
     const connection = await channel.join();
     //if the connection is sucessfull
     if (connection) {
       //adding the new player to the list
-      players.push(new HugoMusicPlayer(connection, youtube, textchannel));
+      players.push(new HugoMusicPlayer(connection, textchannel));
       logger.log("Added player");
     }
   }
 
   getPlayer(guildId: string): HugoMusicPlayer | null {
-    //for each player
+    //for each playernpm i youtube-sr
     for (const player of players) {
       //if they have the same guild id
       if (player.getGuildId() == guildId) {

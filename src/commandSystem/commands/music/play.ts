@@ -1,7 +1,7 @@
 import HugoClient from "../../../objects/HugoClient";
 import HugoCommand from "../../../objects/HugoCommand";
 import Logger from "../../../tools/Logger";
-import HugoMusicController from "../../../objects/HugoMusicController";
+import HugoMusicController from "../../../objects/music/HugoMusicController";
 import { TextChannel } from "discord.js";
 const logger = new Logger("Command");
 
