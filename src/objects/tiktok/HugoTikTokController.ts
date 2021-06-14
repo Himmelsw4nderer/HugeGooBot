@@ -1,4 +1,4 @@
-import { sleep } from "../../tools/basic";
+import { sleep } from "../../tools/Sleep";
 import tiktok = require('tiktok-app-api');
 import { TikTok } from "tiktok-app-api/dist/core";
 class HugotikTokController{
