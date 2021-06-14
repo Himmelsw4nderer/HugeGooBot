@@ -39,7 +39,7 @@ class DatabaseController {
         return;
       }
       //creating the request string
-      const addSql = db.prepare(`INSERT INTO Servers("id") VALUES("?")`);
+      const addSql = db.prepare("INSERT INTO Servers(id) VALUES(?)");
       //running the request
       addSql.run(id)
       logger.log(`Inserted Server with id ${id} to database`);
@@ -48,11 +48,11 @@ class DatabaseController {
 
   addServer(server: HugoServer) {
     //creating the request string for deletion of old server
-    const deleteSql = db.prepare(`DELETE FROM Servers WHERE id = "?"`);
+    const deleteSql = db.prepare("DELETE FROM Servers WHERE id = ?");
     //running the request
     deleteSql.run(server.id)
     //creating the request string for adding the new server
-    const addSql = db.prepare(`INSERT INTO Servers("id", "prefix") VALUES("?", "?")`);
+    const addSql = db.prepare("INSERT INTO Servers(id, prefix) VALUES(?, ?)");
     //running the request
     addSql.run(server.id, server.prefix)
     logger.log(`Added server with id ${server.id} to the database`);
@@ -81,7 +81,7 @@ class DatabaseController {
         //creating the get request
         const sql = db.prepare("SELECT * FROM Servers");
         //getting sql
-        sql.get((err, rows) => {
+        sql.all((err, rows) => {
             //checking for error
             if(err !== null) reject(err);
             //checking if there are servers
@@ -113,9 +113,9 @@ class DatabaseController {
 
   async initializeTikTok(id: string, channel: string, textchannel: string) {
     //creating the request string for deletion of old server
-    const sql = db.prepare(`INSERT INTO Servers("tiktokchannel", "tiktoktextchannel") WHERE id = "?" Value("?", "?")`);
+    const sql = db.prepare("UPDATE Servers SET tiktokchannel = ?, tiktoktextchannel = ? WHERE id = ?");
     //running the request
-    sql.run(id, channel, textchannel)
+    sql.run(channel, textchannel, id);
   }
 }
 
