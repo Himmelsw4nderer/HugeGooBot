@@ -1,6 +1,7 @@
 import { sleep } from "../../tools/Sleep";
 import tiktok = require('tiktok-app-api');
 import { TikTok } from "tiktok-app-api/dist/core";
+import DatabaseController from "../../database/DatabaseController";
 class HugotikTokController{
     connected: boolean = false;
     tiktokApp: TikTok | undefined;
@@ -25,7 +26,16 @@ class HugotikTokController{
     }
 
     async check(){
-        
+        //getting all serveers from the bot
+        const servers = await DatabaseController.getServers();
+        //for each server
+        for(let server of servers) {
+            //checking if it is valid
+            if(server.tiktokchannel && server.tiktoktextchannel) {
+                //getting the tiktok channel
+                const tikTokUser = this.tiktokApp?.getUserByName(server.tiktokchannel);
+            }
+        }
     }
 }
 

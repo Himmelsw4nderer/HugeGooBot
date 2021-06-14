@@ -15,12 +15,11 @@ class DatabaseController {
         //sending error
         if (err) {
           logger.error(err.message);
+          return;
         }
         logger.log("Connected to the database");
       }
     );
-
-    //db.run('CREATE TABLE "Users" ("Id"    TEXT NOT NULL UNIQUE, PRIMARY KEY("Id"))');
   }
 
   initializeServer(id: string) {
@@ -76,6 +75,32 @@ class DatabaseController {
       });
     });
   }
+
+  async getServers(): Promise<HugoServer[]> {
+    return new Promise<HugoServer[]>((resolve, reject) => {
+        //creating the get request
+        const sql = db.prepare("SELECT * FROM Servers");
+        //getting sql
+        sql.get((err, rows) => {
+            //checking for error
+            if(err !== null) reject(err);
+            //checking if there are servers
+            if(rows == null) reject(rows);
+            //result
+            let servers = new Array<HugoServer>(0);
+            //for all rows
+            for(let row of rows) {
+                //creating the server object
+                let server = new HugoServer(row.id, row.prefix, row.tiktokchannel, row.tiktoktextchannel);
+                //adding results to array
+                servers.push(server)
+            }
+            //resolving
+            resolve(servers);
+            logger.log(servers)
+        });
+    });
+  } 
 
   async changeServer(server: HugoServer) {
     //getting the old server data
