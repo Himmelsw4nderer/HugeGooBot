@@ -1,4 +1,3 @@
-import { NewsChannel, Snowflake } from "discord.js";
 import sqlite3, { Database } from "sqlite3";
 import HugoServer from "../objects/HugoServer";
 import Logger from "../tools/Logger";
@@ -41,22 +40,22 @@ class DatabaseController {
         return;
       }
       //creating the request string
-      const addSql = `INSERT INTO Servers("id") VALUES("${id}")`;
+      const addSql = db.prepare(`INSERT INTO Servers("id") VALUES("?")`);
       //running the request
-      db.run(addSql);
+      addSql.run(id)
       logger.log(`Inserted Server with id ${id} to database`);
     });
   }
 
   addServer(server: HugoServer) {
     //creating the request string for deletion of old server
-    const deleteSql = `DELETE FROM Servers WHERE id = "${server.id}"`;
+    const deleteSql = db.prepare(`DELETE FROM Servers WHERE id = "?"`);
     //running the request
-    db.run(deleteSql);
+    deleteSql.run(server.id)
     //creating the request string for adding the new server
-    const addSql = `INSERT INTO Servers("id", "prefix") VALUES("${server.id}", "${server.prefix}")`;
+    const addSql = db.prepare(`INSERT INTO Servers("id", "prefix") VALUES("?", "?")`);
     //running the request
-    db.run(addSql);
+    addSql.run(server.id, server.prefix)
     logger.log(`Added server with id ${server.id} to the database`);
   }
 
@@ -85,6 +84,13 @@ class DatabaseController {
     if (!server.prefix) server.prefix = databaseserver?.prefix;
     //adding the server to the database
     this.addServer(server);
+  }
+
+  async initializeTikTok(id: string, channel: string, textchannel: string) {
+    //creating the request string for deletion of old server
+    const sql = db.prepare(`INSERT INTO Servers("tiktokchannel", "tiktoktextchannel") WHERE id = "?" Value("?", "?")`);
+    //running the request
+    sql.run(id, channel, textchannel)
   }
 }
 
