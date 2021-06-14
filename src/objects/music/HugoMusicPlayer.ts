@@ -5,8 +5,8 @@ import {
   TextChannel,
   VoiceConnection,
 } from "discord.js";
-import Logger from "../tools/Logger";
-import HugoClient from "./HugoClient";
+import Logger from "../../tools/Logger";
+import HugoClient from "./../HugoClient";
 const logger = new Logger("MusicController");
 import HugoMusicController from "./HugoMusicController";
 import HugoMusicSong from "./HugoMusicSong";
