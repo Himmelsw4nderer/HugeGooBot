@@ -15,4 +15,8 @@ A discord Bot with multiple features
 ```env
 DISCORD_TOKEN={Your Token}
 ```
-4. Run with node `node src/index.js`
+4. Add the database `res/database/hugo.db`
+```md
+CREATE TABLE ...
+```
+5. Run with node `node src/index.js`

@@ -10,9 +10,6 @@ import YouTube from "youtube-sr";
 import HugoMusicSong from "./HugoMusicSong";
 const logger = new Logger("MusicController");
 
-import dotenv from "dotenv";
-dotenv.config({ path: "./src/config.env" });
-
 let players: HugoMusicPlayer[] = new Array();
 
 class HugoMusicController {
