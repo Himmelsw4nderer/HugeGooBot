@@ -15,7 +15,7 @@
     "dotenv": "^9.0.2",
     "ffmpeg-static": "^4.3.0",
     "sqlite3": "^5.0.2",
-    "tiktok-app-api": "^1.4.1",
+    "tiktok-scraper": "^1.4.31",
     "youtube-sr": "^4.1.1",
     "ytdl-core": "^4.8.2"
   },

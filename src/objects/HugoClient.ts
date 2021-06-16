@@ -3,7 +3,7 @@ import HugoCommand from "./HugoCommand";
 
 const clientOptions: ClientOptions = {
   messageCacheMaxSize: 500,
-  disableMentions: "everyone",
+  //disableMentions: "everyone",
   ws: {
     intents: [
       "GUILDS",
