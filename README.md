@@ -20,3 +20,17 @@ DISCORD_TOKEN={Your Token}
 CREATE TABLE ...
 ```
 5. Run with node `node src/index.js`
+
+## Commands
+### General
+- `ping`
+- `prefix`
+- `changeprefix [new prefix]`
+- `systeminfo`
+### Music
+- `play [song title]`
+- `leave`
+- `remove [song index]`
+- `skip`
+### TikTok
+- `tiktok [tiktok username]`
