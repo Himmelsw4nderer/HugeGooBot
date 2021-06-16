@@ -19,7 +19,7 @@ DISCORD_TOKEN={Your Token}
 ```md
 CREATE TABLE ...
 ```
-5. Run with node `node src/index.js`
+5. Run `npm start`
 
 ## Commands
 ### General
