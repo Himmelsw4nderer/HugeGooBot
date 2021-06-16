@@ -17,16 +17,20 @@ command.execute = (message, content) => {
   return new Promise<boolean>(async (resolve) => {
     //check if member has the permision admin
     if (message.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
-      if (content?.split(" ").length ?? 0 < 1) notMatchGuidelines(message, "");
+      //getting the arguments
+      const args = content?.split(" ") ?? new Array(1);
+      if (!args.length ?? 0 >= 1){ 
+        notMatchGuidelines(message, "");
+        resolve(false);
+        return;
+      }
       //getting the new prefix out of the command
       const newPrefix = content?.split(" ")[1] ?? "";
       //if the new Prefix matches the
       const regex = new RegExp(`[&.,!"§$%&/()=?*'+#~_:;°^]\S{0,2}`);
       if (regex.test(newPrefix)) {
         //setting the new prefix to the database
-        await DatabaseController.changeServer(
-          new HugoServer(message.guild?.id ?? "", newPrefix)
-        );
+        await DatabaseController.changePrefix(message.guild?.id ?? "", newPrefix);
         message.reply(`Successfully changed the prefix to ${newPrefix}`);
         logger.log(`Changed prefix of a guild to ${newPrefix}`);
         resolve(true);

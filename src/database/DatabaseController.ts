@@ -103,18 +103,17 @@ class DatabaseController {
         }
         //resolving
         resolve(servers);
-        logger.log(servers);
       });
     });
   }
 
-  async changeServer(server: HugoServer) {
-    //getting the old server data
-    const databaseserver = await this.getServerById(server.id.toString());
-    //setting old values if there are no new ones
-    if (!server.prefix) server.prefix = databaseserver?.prefix;
-    //adding the server to the database
-    this.addServer(server);
+  async changePrefix(id: string, prefix: string) {
+    //creating the request string for deletion of old server
+    const sql = db.prepare(
+      "UPDATE Servers SET prefix = ? WHERE id = ?"
+    );
+    //running the request
+    sql.run(prefix, id);
   }
 
   async initializeTikTok(id: string, channel: string, textchannel: string) {

@@ -37,18 +37,20 @@ class HugoTikTokController {
         //checking if it is valid
         if (server.tiktokchannel && server.tiktoktextchannel) {
           //getting the tiktok channel
-          const posts = await TikTokScraper.user("ToneyZYA", {
+          const posts = await TikTokScraper.user(server.tiktokchannel, {
             number: 1,
           });
           //getting the video
           const video = posts.collector[0];
+          if(!video) {
+            resolve();
+            return;
+          }
           //checking if video is new
           if (video.id == server.tiktoklastvideo) {
               resolve();
               return;
           }
-          //printing video
-          logger.debug(video);
           //getting the channel
           const channel = await HugoClient.channels.fetch(
             server.tiktoktextchannel

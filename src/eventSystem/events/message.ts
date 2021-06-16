@@ -38,7 +38,7 @@ export default async function execute(message: Message) {
         //for each trigger in the command
         for (const trigger of command.trigger) {
           //if the content starts with the command
-          if (content.startsWith(trigger)) {
+          if (content.startsWith(`${trigger} `) || content == trigger) {
             //executing the command function
             logger.log(`Executing ${command.name} command`);
             //deleating the message
