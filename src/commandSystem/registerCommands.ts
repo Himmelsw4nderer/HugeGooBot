@@ -2,6 +2,7 @@ import HugoClient from "../objects/HugoClient";
 import HugoCommand from "../objects/HugoCommand";
 import Logger from "../tools/Logger";
 import rawCommands from "./Commands";
+import { Message } from "discord.js";
 
 const logger = new Logger("CommandLoader");
 

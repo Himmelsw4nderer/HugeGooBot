@@ -30,14 +30,17 @@ command.execute = (message, content) => {
         message.reply(`Successfully changed the prefix to ${newPrefix}`);
         logger.log(`Changed prefix of a guild to ${newPrefix}`);
         resolve(true);
+        return;
       } else {
         notMatchGuidelines(message, newPrefix);
         resolve(false);
+        return;
       }
     } else {
       message.reply(noPermissions());
       logger.log("User has not enough permissions");
       resolve(false);
+      return;
     }
   });
 };

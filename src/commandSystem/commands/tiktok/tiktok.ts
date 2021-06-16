@@ -11,8 +11,14 @@ const command = new HugoCommand(
 
 command.execute = async (message, content) => {
     return new Promise<boolean>(async (resolve) => {
-        await DatabaseController.initializeTikTok(message.guild?.id ?? "", content ?? "", message.channel.id ?? "")
-        logger.log("Command sucessfully executed");
+        content = content?.substr(7);
+        if (content) {
+            await DatabaseController.initializeTikTok(message.guild?.id ?? "", content ?? "", message.channel.id ?? "")
+            logger.log("Command sucessfully executed");
+            resolve(true);
+            return;
+        }
+        resolve(false);
     });
 }
 
