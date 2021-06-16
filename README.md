@@ -11,4 +11,8 @@ A discord Bot with multiple features
 ## Usage
 1. Clone repository `git clone https://...`
 2. Compile `tsc`
-3. Run with node `node src/index.js`
+3. Add `src/config.env` with:
+```env
+DISCORD_TOKEN={Your Token}
+```
+4. Run with node `node src/index.js`
