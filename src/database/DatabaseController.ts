@@ -116,7 +116,7 @@ class DatabaseController {
     sql.run(prefix, id);
   }
 
-  async initializeTikTok(id: string, channel: string, textchannel: string) {
+  async initializeTikTok(id: string, channel?: string, textchannel?: string) {
     //creating the request string for deletion of old server
     const sql = db.prepare(
       "UPDATE Servers SET tiktokchannel = ?, tiktoktextchannel = ? WHERE id = ?"

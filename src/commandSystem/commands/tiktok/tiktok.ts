@@ -13,7 +13,7 @@ command.execute = async (message, content) => {
     return new Promise<boolean>(async (resolve) => {
         content = content?.substr(7);
         if (content) {
-            await DatabaseController.initializeTikTok(message.guild?.id ?? "", content ?? "", message.channel.id ?? "")
+            await DatabaseController.initializeTikTok(message.guild?.id ?? "", content, message.channel.id)
             logger.log("Command sucessfully executed");
             resolve(true);
             return;

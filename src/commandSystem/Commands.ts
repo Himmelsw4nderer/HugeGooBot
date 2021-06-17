@@ -8,6 +8,7 @@ const commands: string[] = [
   "music/leave",
   "music/skip",
   "music/remove",
-  "tiktok/tiktok"
+  "tiktok/tiktok",
+  "tiktok/untiktok"
 ];
 export default commands;

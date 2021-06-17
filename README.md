@@ -43,3 +43,4 @@ CREATE TABLE "Servers" (
 - `skip`
 ### TikTok
 - `tiktok [tiktok username]`
+- `untiktok`
