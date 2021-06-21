@@ -65,9 +65,16 @@ class DatabaseController {
       //sending the request
       sql.get(id, (err, row) => {
         //checking for error
-        if (err !== null) reject(err);
+        if (err !== null) {
+          reject(err);
+          return;
+        }
         //checking if server exists in database
-        if (row == null) reject();
+        if (row == null && !row.id && !row.prefix){
+          this.addServer(new HugoServer(id, "§"));
+          reject();
+          return;
+        }
         //creating the server objekt
         let server = new HugoServer(row.id, row.prefix);
         //returning the server object
@@ -83,9 +90,15 @@ class DatabaseController {
       //getting sql
       sql.all((err, rows) => {
         //checking for error
-        if (err !== null) reject(err);
+        if (err !== null) {
+          reject(err);
+          return;
+        }
         //checking if there are servers
-        if (rows == null) reject(rows);
+        if (rows == null) {
+          reject(rows);
+          return;
+        }
         //result
         let servers = new Array<HugoServer>(0);
         //for all rows
