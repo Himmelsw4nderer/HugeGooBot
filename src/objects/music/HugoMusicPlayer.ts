@@ -72,7 +72,7 @@ export default class HugoMusicPlayer {
           );
           //applying settings
           this.addDispatcherOptions();
-          this.makeMessage(this.textChannel);
+          this.editMessage();
         } else {
           this.nextSong();
         }
