@@ -1,4 +1,3 @@
-import { sleep } from "../../tools/Sleep";
 import DatabaseController from "../../database/DatabaseController";
 import Logger from "../../tools/Logger";
 import HugoClient from "../HugoClient";
@@ -6,30 +5,10 @@ import { MessageEmbed, TextChannel } from "discord.js";
 
 const TikTokScraper = require("tiktok-scraper");
 
-const logger = new Logger("HugoTikTokController");
-class HugoTikTokController {
-  connected: boolean = false;
+const logger = new Logger("TikTokNotifications");
 
-  async run() {
-    //setting the connection to true
-    this.connected = true;
-    //aslong as discord is connected
-    while (this.connected) {
-      logger.log("Checking for new videos");
-      //check the tiktok accounts for new videos
-      await this.check();
-      //sleep for 200 sek
-      await sleep(200000);
-    }
-  }
-
-  async stop() {
-    //setting the connection to false
-    this.connected = false;
-  }
-
-  async check(): Promise<void> {
-    return new Promise<void>(async (resolve) => {
+async function checkTikTok(): Promise<void> {
+  return new Promise<void>(async (resolve) => {
       //getting all serveers from the bot
       const servers = await DatabaseController.getServers();
       //for each server
@@ -42,15 +21,9 @@ class HugoTikTokController {
           });
           //getting the video
           const video = posts.collector[0];
-          if(!video) {
-            resolve();
-            return;
-          }
+          if(video) {
           //checking if video is new
-          if (video.id == server.tiktoklastvideo) {
-              resolve();
-              return;
-          }
+          if (video.id != server.tiktoklastvideo) {
           //getting the channel
           const channel = await HugoClient.channels.fetch(
             server.tiktoktextchannel
@@ -81,11 +54,12 @@ class HugoTikTokController {
           }
           //adding the video to the database
           DatabaseController.newTikTokVideo(server.id, posts.collector[0].id);
+          }
         }
       }
-      resolve();
-    });
-  }
+    }
+    resolve();
+  });
 }
 
-export default new HugoTikTokController();
+export {checkTikTok}
