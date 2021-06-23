@@ -31,15 +31,15 @@ CREATE TABLE "Servers" (
 
 ## Commands
 ### General
-- `ping`
-- `prefix`
-- `changeprefix [new prefix]`
-- `systeminfo`
+- `ping` - Replys pong
+- `prefix` - Displays the current prefix of the server
+- `changeprefix [new prefix]` - Sets a new prefix to the server
+- `systeminfo` - displys the systeminfo of the bot
 ### Music
-- `play [song title]`
-- `leave`
-- `remove [song index]`
-- `skip`
+- `play [song title]` - Suggest a song
+- `leave` - Removes the bot from the voice channel
+- `remove [song index]` - Removes the song with the index (only admin and suggestor)
+- `skip` - Skips the current playing song (only admin and suggestor)
 ### TikTok
-- `tiktok [tiktok username]`
-- `untiktok`
+- `tiktok [tiktok username]` - Adds TikTok notification in the channel
+- `untiktok` - Removes TikTok notifications in the server
