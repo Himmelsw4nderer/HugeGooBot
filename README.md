@@ -15,7 +15,6 @@ A discord Bot with multiple features
 ```env
 DISCORD_TOKEN="{Your Token}"
 COLOR="{Bot Embed Color}"
-GOOGLE_API_KEY="{Your Google API Key}"
 ```
 4. Add the database `res/database/hugo.db`
 ```md
