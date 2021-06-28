@@ -4,8 +4,9 @@ A discord Bot with multiple features
 ## ToDo
 - [x] Basic bot features
 - [x] Basic musicbot features
-- [ ] TikTok upload notifications
+- [x] TikTok upload notifications
 - [ ] Slash command support
+- [ ] More modern music bot features
 - [ ] more features :D
 
 ## Usage
