@@ -12,7 +12,7 @@ const commands: string[] = [
   "music/remove",
   //"music/voteskip",
   "notifications/tiktok",
-  //"notifications/removenotifications",
-  //"notifications/listnotifications",
+  "notifications/removenotification",
+  "notifications/listnotifications",
 ];
 export default commands;

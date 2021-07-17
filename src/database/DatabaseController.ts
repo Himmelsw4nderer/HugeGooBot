@@ -5,17 +5,17 @@ import HugoNotification from "../objects/notifications/HugoNotification";
 import Logger from "../tools/Logger";
 
 /**
- * The database 
+ * The database
  */
 let db: Database;
 /**
- * The logger 
+ * The logger
  */
 let logger = new Logger("DatabaseController");
 
-/** 
+/**
  * Controls all interactions with the database and the bot itself
-*/
+ */
 class DatabaseController {
   /**The constructer */
   constructor() {
@@ -82,7 +82,6 @@ class DatabaseController {
           return;
         }
         server.prefix = row.prefix;
-        logger.debug("asd");
         resolve(server);
       });
     });
@@ -134,8 +133,8 @@ class DatabaseController {
     const sql = db.prepare(
       "INSERT INTO Notifications(type, channel, place) Values(?, ?, ?)"
     );
-    logger.debug(1)
     sql.run(type, channel, place);
+    logger.log("Added a new notification to the database")
   }
 
   /**
@@ -144,10 +143,9 @@ class DatabaseController {
    * @param result The last result for notifications
    */
   async newLastOfNotification(id: number, result: string) {
-    const sql = db.prepare(
-      "UPDATE Notifications SET last = ? WHERE id = ?"
-    );
+    const sql = db.prepare("UPDATE Notifications SET last = ? WHERE id = ?");
     sql.run(result, id);
+    logger.log("Updated the last value of a notification")
   }
 
   /**
@@ -208,6 +206,44 @@ class DatabaseController {
         }
       });
     });
+  }
+
+  /**
+   * Gets all notifications with specified discord channel from the database
+   * @returns The discord channel id
+   */
+  async getNotificationsByChannel(channelId: string) {
+    return new Promise<Array<HugoNotification>>((resolve, reject) => {
+      const sql = db.prepare("SELECT * FROM Notifications WHERE channel=?");
+      let notifications = new Array<HugoNotification>(0);
+      sql.all(channelId, (err, rows) => {
+        if (err !== null || rows == null || rows.length == 0) {
+          resolve(notifications);
+          return;
+        }
+        for (let row of rows) {
+          const notification = new HugoNotification(
+            row.id,
+            row.type,
+            row.channel,
+            row.place,
+            row.last
+          );
+          notifications.push(notification);
+          resolve(notifications);
+        }
+      });
+    });
+  }
+
+  /**
+   * Deleates a specified notification
+   * @param id The position of the notification
+   */
+  async removeNotification(id: number) {
+    const sql = db.prepare("DELETE FROM Notifications WHERE id=?");
+    sql.run(id);
+    logger.log("Removed a notification from the database");
   }
 }
 

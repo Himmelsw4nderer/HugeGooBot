@@ -5,6 +5,7 @@ A discord Bot with multiple features
 - [x] Basic bot features
 - [x] Basic musicbot features
 - [x] TikTok upload notifications
+- [ ] more notifications
 - [ ] Slash command support
 - [ ] More modern music bot features
 - [ ] more features :D
@@ -22,9 +23,15 @@ COLOR="{Bot Embed Color}"
 CREATE TABLE "Servers" (
 	"id"	TEXT NOT NULL UNIQUE,
 	"prefix"	TEXT NOT NULL DEFAULT '§',
-	"tiktokchannel"	TEXT,
-	"tiktoktextchannel"	TEXT,
-	"tiktoklastvideo"	TEXT,
+	PRIMARY KEY("id")
+);
+
+CREATE TABLE "Notifications" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"type"	TEXT,
+	"channel"	TEXT,
+	"place"	TEXT,
+	"last"	TEXT,
 	PRIMARY KEY("id")
 );
 ```
@@ -43,4 +50,5 @@ CREATE TABLE "Servers" (
 - `skip` - Skips the current playing song (only admin and suggestor)
 ### TikTok
 - `tiktok [tiktok username]` - Adds TikTok notification in the channel
-- `untiktok` - Removes TikTok notifications in the server
+- `listnotifications` - Lists all notifications of the channel
+- `removenotification [position]` - Removes a notification from the channel with the index from `listnotifications`
