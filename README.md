@@ -5,10 +5,11 @@ A discord Bot with multiple features
 - [x] Basic bot features
 - [x] Basic musicbot features
 - [x] TikTok upload notifications
-- [ ] more notifications
+- [ ] Automatic database creation if no exist
+- [ ] More notifications (YT, Twitch, Instagramm, etc)
 - [ ] Slash command support
-- [ ] More modern music bot features
-- [ ] more features :D
+- [ ] More modern music bot features (with Discord interactions)
+- [ ] More features :D
 
 ## Usage
 1. Clone repository `git clone https://...`
@@ -48,7 +49,7 @@ CREATE TABLE "Notifications" (
 - `leave` - Removes the bot from the voice channel
 - `remove [song index]` - Removes the song with the index (only admin and suggestor)
 - `skip` - Skips the current playing song (only admin and suggestor)
-### TikTok
+### Notifications
 - `tiktok [tiktok username]` - Adds TikTok notification in the channel
 - `listnotifications` - Lists all notifications of the channel
 - `removenotification [position]` - Removes a notification from the channel with the index from `listnotifications`

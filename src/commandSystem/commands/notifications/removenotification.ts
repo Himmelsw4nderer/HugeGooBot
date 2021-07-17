@@ -20,7 +20,7 @@ const command = new HugoCommand(
     "rmnotification",
     "rmNotification",
   ],
-  "Removes a notification of this channel"
+  "Removes a notification from the channel with the index from"
 );
 
 /**
