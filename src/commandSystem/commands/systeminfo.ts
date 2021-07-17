@@ -6,9 +6,15 @@ dotenv.config({ path: "./src/config.env" });
 import Logger from "../../tools/Logger";
 import loadedcommands from "../Commands";
 import loadedevents from "../../eventSystem/Events";
+
+/**
+ * The logger
+ */
 const logger = new Logger("Command");
 
-//creating the command
+/**
+ * The command
+ */
 const command = new HugoCommand(
   "systeminfo",
   [
@@ -23,40 +29,44 @@ const command = new HugoCommand(
   "Displays the bots system info"
 );
 
+/**
+ * The date from the date in miliseconds
+ * @param millisec The runtime in milisec
+ * @returns The date
+ */
 function millisecToDate(millisec: number): string {
-  //milliseconds to seconds
   let secs = Math.floor(millisec / 1000);
-  //calculatíng the minutes
   let mins = Math.floor(secs / 60);
-  //calculating the seconds without the minutes
   secs -= mins * 60;
-  //calculating hours
   let hours = Math.floor(mins / 60);
-  //calculating the minutes without the hours
   mins -= hours * 60;
-  //calculating days
   let days = Math.floor(hours / 24);
-  //calculating the hours without the days
   hours -= days * 24;
 
   return `${days}days ${hours}hours ${mins}min ${secs}sec`;
 }
 
+/**
+ * Gets the names of a list of commands
+ * @param commands The loaded commands
+ * @returns The command names
+ */
 function mapCommands(commands: HugoCommand[]): string[] {
-  //returning the map
   return commands.map((command: HugoCommand): string => {
-    //returning the name
     return command.name.toLowerCase();
   });
 }
 
+/**
+ * The execute function of the command
+ * @param message The message of the command
+ * @returns Is sucessful
+ */
 command.execute = (message) => {
   return new Promise<boolean>((resolve) => {
     const client = HugoClient;
     let time: number = 0;
-    //callculating uptime while checking if client is not null
     if (client.uptime) time = client.uptime;
-    //constructing the response
     const reply = new MessageEmbed()
       .setTitle(`Systeminfo`)
       .setColor(process.env.COLOR ?? 0x00000)
@@ -79,7 +89,6 @@ command.execute = (message) => {
       .setFooter("HuGoBot")
       .setTimestamp();
 
-    //replying
     message.reply(reply);
     logger.log("Command sucessfully executed");
     resolve(true)

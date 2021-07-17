@@ -1,35 +1,41 @@
 import { Message, MessageEmbed, Permissions } from "discord.js";
 import DatabaseController from "../../database/DatabaseController";
 import HugoCommand from "../../objects/HugoCommand";
-import HugoServer from "../../objects/HugoServer";
 import Logger from "../../tools/Logger";
 import { noPermissions } from "../../tools/StandardReplys";
+
+/**
+ * The logger
+ */
 const logger = new Logger("Command");
 
-//creating the command
+/**
+ * The command
+ */
 const command = new HugoCommand(
   "changeprefix",
   ["changeprefix", "ChangePrefix", "change-prefix", "Change-Prefix"],
   "Changes the prefix of the server"
 );
 
+/**
+ * The execute function of the command
+ * @param message The message of the command
+ * @param content The text of the command
+ * @returns Is sucessful
+ */
 command.execute = (message, content) => {
   return new Promise<boolean>(async (resolve) => {
-    //check if member has the permision admin
     if (message.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
-      //getting the arguments
       const args = content?.split(" ") ?? new Array(1);
       if (!args.length ?? 0 >= 1){ 
         notMatchGuidelines(message, "");
         resolve(false);
         return;
       }
-      //getting the new prefix out of the command
       const newPrefix = content?.split(" ")[1] ?? "";
-      //if the new Prefix matches the
       const regex = new RegExp(`[&.,!"§$%&/()=?*'+#~_:;°^]\S{0,2}`);
       if (regex.test(newPrefix)) {
-        //setting the new prefix to the database
         await DatabaseController.changePrefix(message.guild?.id ?? "", newPrefix);
         message.reply(`Successfully changed the prefix to ${newPrefix}`);
         logger.log(`Changed prefix of a guild to ${newPrefix}`);
@@ -49,8 +55,12 @@ command.execute = (message, content) => {
   });
 };
 
+/**
+ * Send message if the guidelines do not match with the new prefix
+ * @param message The message of the command
+ * @param newPrefix The new prefix
+ */
 function notMatchGuidelines(message: Message, newPrefix: string) {
-  //creating the embadded
   const reply = new MessageEmbed()
     .setTitle(`Could not change the Prefix`)
     .setColor(0xe84e43)
@@ -71,7 +81,6 @@ function notMatchGuidelines(message: Message, newPrefix: string) {
     )
     .setFooter("HuGoBot")
     .setTimestamp();
-  //send embedded
   message.reply(reply);
   logger.log("New prefix does not match guidelines");
 }

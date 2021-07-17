@@ -2,35 +2,31 @@ import DatabaseController from "../../database/DatabaseController";
 import Logger from "../../tools/Logger";
 import HugoClient from "../HugoClient";
 import { MessageEmbed, TextChannel } from "discord.js";
-
 const TikTokScraper = require("tiktok-scraper");
 
+/**
+ * The logger
+ */
 const logger = new Logger("TikTokNotifications");
 
+/**
+ * Checks all tiktok channels in database for new content and creates a message notifing the discord
+ * @returns A promise when ready
+ */
 async function checkTikTok(): Promise<void> {
   return new Promise<void>(async (resolve) => {
-      //getting all serveers from the bot
-      const servers = await DatabaseController.getServers();
-      //for each server
-      for (let server of servers) {
-        //checking if it is valid
-        if (server.tiktokchannel && server.tiktoktextchannel) {
-          //getting the tiktok channel
-          const posts = await TikTokScraper.user(server.tiktokchannel, {
-            number: 1,
-          });
-          //getting the video
-          const video = posts.collector[0];
-          if(video) {
-          //checking if video is new
-          if (video.id != server.tiktoklastvideo) {
-          //getting the channel
-          const channel = await HugoClient.channels.fetch(
-            server.tiktoktextchannel
-          );
-          //if its a text channel
+    const notifications = await DatabaseController.getNotificationsByType(
+      "tiktok"
+    );
+    for (let notification of notifications) {
+      const posts = await TikTokScraper.user(notification.place, {
+        number: 1,
+      });
+      const video = posts.collector[0];
+      if (video) {
+        if (video.id != notification.last) {
+          const channel = await HugoClient.channels.fetch(notification.channel);
           if (channel.isText() && channel instanceof TextChannel) {
-            //create embedded
             const reply = new MessageEmbed()
               .setTitle(
                 `${video.authorMeta.nickName} has just uploaded a Video`
@@ -49,12 +45,12 @@ async function checkTikTok(): Promise<void> {
               )
               .setFooter("HuGoBot")
               .setTimestamp();
-            //send embedded
-            (await channel.send("@everyone,")).edit(reply)
+            (await channel.send("@everyone,")).edit(reply);
           }
-          //adding the video to the database
-          DatabaseController.newTikTokVideo(server.id, posts.collector[0].id);
-          }
+          DatabaseController.newLastOfNotification(
+            notification.id,
+            posts.collector[0].id
+          );
         }
       }
     }
@@ -62,4 +58,4 @@ async function checkTikTok(): Promise<void> {
   });
 }
 
-export {checkTikTok}
+export { checkTikTok };

@@ -1,23 +1,20 @@
-import { Snowflake } from "discord.js";
-
 export default class HugoServer {
-  id: Snowflake;
+  /**
+   * Discord id of hugo server
+   */
+  id: string;
+  /**
+   * Prefix of hugo server
+   */
   prefix: string | null | undefined;
-  tiktokchannel: string | undefined;
-  tiktoktextchannel: string | undefined;
-  tiktoklastvideo: string | undefined;
 
-  constructor(
-    id: string,
-    prefix: string | null | undefined,
-    tiktokchannel?: string,
-    tiktoktextchannel?: string,
-    tiktoklastvideo?: string
-  ) {
+  /**
+   * Creates an instance of hugo server.
+   * @param id Discord id of hugo server
+   * @param prefix Prefix of hugo server
+   */
+  constructor(id: string, prefix: string | null | undefined) {
     this.id = id;
     this.prefix = prefix;
-    this.tiktokchannel = tiktokchannel;
-    this.tiktoktextchannel = tiktoktextchannel;
-    this.tiktoklastvideo = tiktoklastvideo;
   }
 }

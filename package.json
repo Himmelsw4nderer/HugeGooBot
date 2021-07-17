@@ -18,7 +18,7 @@
     "sqlite3": "^5.0.2",
     "tiktok-scraper": "^1.4.31",
     "youtube-sr": "^4.1.1",
-    "ytdl-core": "^4.8.2"
+    "ytdl-core": "^4.8.3"
   },
   "devDependencies": {
     "@types/node": "^15.6.1",

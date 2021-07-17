@@ -1,4 +1,6 @@
-//all commands om a list
+/**
+ * All Commands
+ */
 const commands: string[] = [
   "ping",
   "systeminfo",
@@ -8,7 +10,9 @@ const commands: string[] = [
   "music/leave",
   "music/skip",
   "music/remove",
-  "tiktok/tiktok",
-  "tiktok/untiktok"
+  //"music/voteskip",
+  "notifications/tiktok",
+  //"notifications/removenotifications",
+  //"notifications/listnotifications",
 ];
 export default commands;
