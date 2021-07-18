@@ -5,7 +5,7 @@ A discord Bot with multiple features
 - [x] Basic bot features
 - [x] Basic musicbot features
 - [x] TikTok upload notifications
-- [ ] Automatic database creation if no exist
+- [x] Automatic database creation if no exist
 - [ ] More notifications (YT, Twitch, Instagramm, etc)
 - [ ] Slash command support
 - [ ] More modern music bot features (with Discord interactions)
@@ -19,24 +19,7 @@ A discord Bot with multiple features
 DISCORD_TOKEN="{Your Token}"
 COLOR="{Bot Embed Color}"
 ```
-4. Add the database `res/database/hugo.db`
-```md
-CREATE TABLE "Servers" (
-	"id"	TEXT NOT NULL UNIQUE,
-	"prefix"	TEXT NOT NULL DEFAULT '§',
-	PRIMARY KEY("id")
-);
-
-CREATE TABLE "Notifications" (
-	"id"	INTEGER NOT NULL UNIQUE,
-	"type"	TEXT,
-	"channel"	TEXT,
-	"place"	TEXT,
-	"last"	TEXT,
-	PRIMARY KEY("id")
-);
-```
-5. Run `npm start`
+4. Run `npm start`
 
 ## Commands
 ### General

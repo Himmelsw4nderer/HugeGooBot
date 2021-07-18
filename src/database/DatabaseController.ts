@@ -1,4 +1,4 @@
-import { symlink } from "fs";
+import fs from "fs";
 import sqlite3, { Database } from "sqlite3";
 import HugoServer from "../objects/HugoServer";
 import HugoNotification from "../objects/notifications/HugoNotification";
@@ -17,16 +17,34 @@ let logger = new Logger("DatabaseController");
  * Controls all interactions with the database and the bot itself
  */
 class DatabaseController {
-  /**The constructer */
+  /**
+   * Creates an incteance of DatabaseController
+   */
   constructor() {
+    const dirPath = "./././res/database";
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
     const path = "./././res/database/hugo.db";
-    db = new sqlite3.Database(path, sqlite3.OPEN_READWRITE, (err) => {
-      if (err) {
-        logger.error(err.message);
-        return;
+    db = new sqlite3.Database(
+      path,
+      sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+      (err) => {
+        if (err) {
+          logger.error(err.message);
+          return;
+        }
+        logger.log("Connected to the database");
       }
-      logger.log("Connected to the database");
-    });
+    );
+    const sqlServers = db.prepare(
+      "CREATE TABLE IF NOT EXISTS Servers (id	TEXT NOT NULL UNIQUE, prefix	TEXT NOT NULL DEFAULT §,PRIMARY KEY(id));"
+    );
+    sqlServers.run()
+    const sqlNotifications = db.prepare(
+      "CREATE TABLE IF NOT EXISTS Notifications (id	INTEGER NOT NULL UNIQUE,type TEXT,channel	TEXT,place	TEXT,last	TEXT,PRIMARY KEY(id));"
+    );
+    sqlNotifications.run();
   }
 
   /**
@@ -134,7 +152,7 @@ class DatabaseController {
       "INSERT INTO Notifications(type, channel, place) Values(?, ?, ?)"
     );
     sql.run(type, channel, place);
-    logger.log("Added a new notification to the database")
+    logger.log("Added a new notification to the database");
   }
 
   /**
@@ -145,7 +163,7 @@ class DatabaseController {
   async newLastOfNotification(id: number, result: string) {
     const sql = db.prepare("UPDATE Notifications SET last = ? WHERE id = ?");
     sql.run(result, id);
-    logger.log("Updated the last value of a notification")
+    logger.log("Updated the last value of a notification");
   }
 
   /**
