@@ -220,8 +220,8 @@ class DatabaseController {
             row.last
           );
           notifications.push(notification);
-          resolve(notifications);
         }
+        resolve(notifications);
       });
     });
   }
@@ -248,8 +248,8 @@ class DatabaseController {
             row.last
           );
           notifications.push(notification);
-          resolve(notifications);
         }
+        resolve(notifications);
       });
     });
   }

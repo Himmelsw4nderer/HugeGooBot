@@ -13,10 +13,10 @@ const logger = new Logger("Command");
  * The command itself
  */
 const command = new HugoCommand(
-    "tiktok", 
-    ["tiktok", "TikTok", "Tiktok"],
-    "Creates a tiktok anouncement channel"
-    );
+  "tiktok",
+  ["tiktok", "TikTok", "Tiktok"],
+  "Creates a tiktok notification that will be displayed in the  channel"
+);
 
 
 /**

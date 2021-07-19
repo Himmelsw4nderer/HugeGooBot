@@ -1,8 +1,10 @@
 import { sleep } from "../../tools/Sleep";
 import { checkTikTok } from "./HugoTikTokNotifications";
-import dotenv from "dotenv";
-dotenv.config({ path: "./src/config.env" });
+import { checkYouTube } from "./HugoYouTubeNotifications";
 import Logger from "../../tools/Logger";
+import dotenv from "dotenv";
+import { checkTwitch } from "./HugoTwitchNotifications";
+dotenv.config({ path: "./src/config.env" });
 
 /**
  * The logger
@@ -37,6 +39,8 @@ class HugoNotificationController {
     while (this.connected) {
       logger.log("Checking for new videos");
       await checkTikTok();
+      await checkYouTube();
+      await checkTwitch();
       await sleep(this.waitTime);
     }
   }

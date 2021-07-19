@@ -12,6 +12,8 @@ const commands: string[] = [
   "music/remove",
   //"music/voteskip",
   "notifications/tiktok",
+  "notifications/youtube",
+  "notifications/twitch",
   "notifications/removenotification",
   "notifications/listnotifications",
 ];

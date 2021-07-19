@@ -21,7 +21,13 @@ async function checkTikTok(): Promise<void> {
     for (let notification of notifications) {
       const posts = await TikTokScraper.user(notification.place, {
         number: 1,
+      }).catch(() => {
+        resolve();
       });
+      if (!posts) {
+        resolve();
+        return;
+      }
       const video = posts.collector[0];
       if (video) {
         if (video.id != notification.last) {

@@ -16,8 +16,12 @@ A discord Bot with multiple features
 2. Compile `tsc`
 3. Add `src/config.env` with:
 ```env
-DISCORD_TOKEN="{Your Token}"
-COLOR="{Bot Embed Color}"
+DISCORD_TOKEN="{Your token}"
+COLOR="{Bot embed color}"
+NOTIFICATION_SPEED="{Delay in ms}" #Remember the qouta limit for the youtube api
+TWITCH_CLIENT_ID="{Your client id}"
+TWITCH_SECRET="{Your secret}"
+YOUTUBE_API_KEY="{Your api key}"
 ```
 4. Run `npm start`
 
@@ -34,5 +38,7 @@ COLOR="{Bot Embed Color}"
 - `skip` - Skips the current playing song (only admin and suggestor)
 ### Notifications
 - `tiktok [tiktok username]` - Adds TikTok notification in the channel
+- `twitch [twitch username]` - Adds twitch notification in the channel
+- `youtube [youtube username]` - Adds youtube notification in the channel
 - `listnotifications` - Lists all notifications of the channel
 - `removenotification [position]` - Removes a notification from the channel with the index from `listnotifications`
