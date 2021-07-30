@@ -2,7 +2,7 @@ import { Message, MessageEmbed, Permissions } from "discord.js";
 import DatabaseController from "../../database/DatabaseController";
 import HugoCommand from "../../objects/HugoCommand";
 import Logger from "../../tools/Logger";
-import { noPermissions } from "../../tools/StandardReplys";
+import { noPermissions } from "../../tools/Response";
 
 /**
  * The logger

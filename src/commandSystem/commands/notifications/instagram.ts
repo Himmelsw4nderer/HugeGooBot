@@ -13,9 +13,9 @@ const logger = new Logger("Command");
  * The command itself
  */
 const command = new HugoCommand(
-  "twitch",
-  ["twitch", "Twitch"],
-  "Creates a twitch notification that will be displayed in the channel"
+  "instagram",
+  ["instagram", "Instagram"],
+  "Creates a instagramm notification that will be displayed in the channel"
 );
 
 /**
@@ -23,11 +23,11 @@ const command = new HugoCommand(
  */
 command.execute = async (message, content) => {
   return new Promise<boolean>(async (resolve) => {
-    content = content?.substr(7);
+    content = content?.substr(11);
     if (message.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
       if (content) {
         await DatabaseController.newNotification(
-          "twitch",
+          "instagram",
           message.channel.id,
           content
         );

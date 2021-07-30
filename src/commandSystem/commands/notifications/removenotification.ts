@@ -1,7 +1,7 @@
 import HugoCommand from "../../../objects/HugoCommand";
 import Logger from "../../../tools/Logger";
 import { Permissions } from "discord.js";
-import { noPermissions } from "../../../tools/StandardReplys";
+import { noPermissions } from "../../../tools/Response";
 import DatabaseController from "../../../database/DatabaseController";
 
 /**
