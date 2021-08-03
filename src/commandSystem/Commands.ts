@@ -14,6 +14,7 @@ const commands: string[] = [
   "notifications/tiktok",
   "notifications/youtube",
   "notifications/twitch",
+  "notifications/instagram",
   "notifications/removenotification",
   "notifications/listnotifications",
 ];

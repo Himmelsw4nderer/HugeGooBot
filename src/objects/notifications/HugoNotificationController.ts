@@ -4,6 +4,7 @@ import { checkYouTube } from "./HugoYouTubeNotifications";
 import Logger from "../../tools/Logger";
 import dotenv from "dotenv";
 import { checkTwitch } from "./HugoTwitchNotifications";
+import { checkInstagram } from "./HugoInstagramNotifications";
 dotenv.config({ path: "./src/config.env" });
 
 /**
@@ -41,6 +42,7 @@ class HugoNotificationController {
       await checkTikTok();
       await checkYouTube();
       await checkTwitch();
+      await checkInstagram();
       await sleep(this.waitTime);
     }
   }

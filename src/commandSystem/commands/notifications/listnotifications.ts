@@ -1,7 +1,7 @@
 import HugoCommand from "../../../objects/HugoCommand";
 import Logger from "../../../tools/Logger";
 import { MessageEmbed, Permissions } from "discord.js";
-import { noPermissions } from "../../../tools/Response";
+import { getWord } from "../../../tools/Language";
 import DatabaseController from "../../../database/DatabaseController";
 
 /**
@@ -40,7 +40,7 @@ command.execute = async (message, content) => {
         logger.debug(notifications.length)
       return;
     } else {
-      message.reply(noPermissions());
+      message.reply(await getWord(message.guild?.id ?? "", 1));
     }
     resolve(false);
   });

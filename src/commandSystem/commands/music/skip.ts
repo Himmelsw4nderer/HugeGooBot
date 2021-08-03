@@ -1,5 +1,6 @@
 import HugoCommand from "../../../objects/HugoCommand";
 import Logger from "../../../tools/Logger";
+import { getWord } from "../../../tools/Language";
 import HugoMusicController from "../../../objects/music/HugoMusicController";
 import HugoClient from "../../../objects/HugoClient";
 
@@ -33,9 +34,7 @@ command.execute = (message) => {
         message.guild?.id ?? ""
       );
       if (!isSuccesfull)
-        message.reply(
-          "You don't have permissions to do that and neither did you suggested the song try the voteskip command"
-        );
+        message.reply(await getWord(message.guild?.id ?? "", 1));
       resolve(isSuccesfull);
     } else {
       resolve(false);

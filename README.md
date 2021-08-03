@@ -6,7 +6,7 @@ A discord Bot with multiple features
 - [x] Basic musicbot features
 - [x] TikTok upload notifications
 - [x] Automatic database creation if no exist
-- [ ] More notifications (YT, Twitch, Instagramm, etc)
+- [x] More notifications (YT, Twitch, etc)
 - [ ] Slash command support
 - [ ] More modern music bot features (with Discord interactions)
 - [ ] More features :D
@@ -39,6 +39,7 @@ YOUTUBE_API_KEY="{Your api key}"
 ### Notifications
 - `tiktok [tiktok username]` - Adds TikTok notification in the channel
 - `twitch [twitch username]` - Adds twitch notification in the channel
-- `youtube [youtube username]` - Adds youtube notification in the channel
+- `youtube [youtube username/link]` - Adds youtube notification in the channel
+- `instagramm [instagramm username]` - Adds instagramm notification in the channel
 - `listnotifications` - Lists all notifications of the channel
 - `removenotification [position]` - Removes a notification from the channel with the index from `listnotifications`

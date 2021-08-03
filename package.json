@@ -15,6 +15,7 @@
     "discord.js": "^12.5.3",
     "dotenv": "^9.0.2",
     "ffmpeg-static": "^4.3.0",
+    "instagram-scraper-api": "^0.1.1",
     "node-twitch": "^0.4.5",
     "sqlite3": "^5.0.2",
     "tiktok-scraper": "^1.4.31",

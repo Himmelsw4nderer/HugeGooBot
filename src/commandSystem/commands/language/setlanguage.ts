@@ -13,9 +13,9 @@ const logger = new Logger("Command");
  * The command itself
  */
 const command = new HugoCommand(
-  "instagram",
-  ["instagram", "Instagram"],
-  "Creates a instagramm notification that will be displayed in the channel"
+  "setlang",
+  ["setlang", "setLang", "SetLang"],
+  "Changes the language of the server"
 );
 
 /**
@@ -23,12 +23,11 @@ const command = new HugoCommand(
  */
 command.execute = async (message, content) => {
   return new Promise<boolean>(async (resolve) => {
-    content = content?.substr(11);
+    content = content?.substr(8);
     if (message.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
       if (content) {
-        await DatabaseController.newNotification(
-          "instagram",
-          message.channel.id,
+        await DatabaseController.changeLanguage(
+          message.guild?.id ?? "",
           content
         );
         logger.log("Command sucessfully executed");

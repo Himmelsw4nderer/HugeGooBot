@@ -2,7 +2,7 @@ import HugoCommand from "../../../objects/HugoCommand";
 import DatabaseController from "../../../database/DatabaseController";
 import Logger from "../../../tools/Logger";
 import { Permissions } from "discord.js";
-import { noPermissions } from "../../../tools/Response";
+import { getWord } from "../../../tools/Language";
 
 /**
  * The logger
@@ -36,7 +36,7 @@ command.execute = async (message, content) => {
         return;
       }
     } else {
-      message.reply(noPermissions());
+      message.reply(await getWord(message.guild?.id ?? "", 1));
     }
     resolve(false);
   });

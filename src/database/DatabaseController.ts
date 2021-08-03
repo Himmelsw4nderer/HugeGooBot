@@ -38,7 +38,7 @@ class DatabaseController {
       }
     );
     const sqlServers = db.prepare(
-      "CREATE TABLE IF NOT EXISTS Servers (id	TEXT NOT NULL UNIQUE, prefix	TEXT NOT NULL DEFAULT §,PRIMARY KEY(id));"
+      "CREATE TABLE IF NOT EXISTS Servers (id	TEXT NOT NULL UNIQUE, prefix	TEXT NOT NULL DEFAULT §, language	TEXT NOT NULL DEFAULT en, PRIMARY KEY(id));"
     );
     sqlServers.run()
     const sqlNotifications = db.prepare(

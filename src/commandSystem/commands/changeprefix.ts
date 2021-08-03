@@ -2,7 +2,7 @@ import { Message, MessageEmbed, Permissions } from "discord.js";
 import DatabaseController from "../../database/DatabaseController";
 import HugoCommand from "../../objects/HugoCommand";
 import Logger from "../../tools/Logger";
-import { noPermissions } from "../../tools/Response";
+import { getWord } from "../../tools/Language";
 
 /**
  * The logger
@@ -47,8 +47,7 @@ command.execute = (message, content) => {
         return;
       }
     } else {
-      message.reply(noPermissions());
-      logger.log("User has not enough permissions");
+      message.reply(await getWord(message.guild?.id ?? "", 1));
       resolve(false);
       return;
     }

@@ -2,6 +2,7 @@ import HugoCommand from "../../../objects/HugoCommand";
 import Logger from "../../../tools/Logger";
 import HugoMusicController from "../../../objects/music/HugoMusicController";
 import { TextChannel } from "discord.js";
+import { getWord } from "../../../tools/Language";
 import HugoClient from "../../../objects/HugoClient";
 
 /**
@@ -41,9 +42,7 @@ command.execute = (message, content) => {
               pos
             );
             if (!isSuccesfull)
-              message.reply(
-                "You don't have permissions to do that and neither did you suggested the song"
-              );
+              message.reply(await getWord(message.guild?.id ?? "", 1));
             resolve(isSuccesfull);
           }
         }
