@@ -11,20 +11,20 @@
   "author": "Himmelsw4nderer",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.5.0",
+    "@discordjs/opus": "^0.5.3",
     "discord.js": "^12.5.3",
     "dotenv": "^9.0.2",
-    "ffmpeg-static": "^4.3.0",
+    "ffmpeg-static": "^4.4.0",
     "instagram-scraper-api": "^0.1.1",
     "node-twitch": "^0.4.5",
     "sqlite3": "^5.0.2",
-    "tiktok-scraper": "^1.4.31",
-    "youtube-sr": "^4.1.1",
+    "tiktok-scraper": "^1.4.34",
+    "youtube-sr": "^4.1.7",
     "youtube.ts": "^0.2.0",
-    "ytdl-core": "^4.8.3"
+    "ytdl-core": "^4.9.1"
   },
   "devDependencies": {
-    "@types/node": "^15.6.1",
+    "@types/node": "^15.14.7",
     "@types/sqlite3": "^3.1.7"
   }
 }

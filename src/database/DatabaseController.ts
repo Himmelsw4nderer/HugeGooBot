@@ -89,7 +89,7 @@ class DatabaseController {
   getServerById(id: string): Promise<HugoServer> {
     return new Promise<HugoServer>(async (resolve, reject) => {
       const sql = db.prepare("SELECT * FROM Servers WHERE id=?");
-      let server = new HugoServer(id, "§");
+      let server = new HugoServer(id, "§", "en");
       sql.get(id, async (err, row) => {
         if (err !== null) {
           resolve(server);
@@ -123,7 +123,7 @@ class DatabaseController {
           return;
         }
         for (let row of rows) {
-          let server = new HugoServer(row.id, row.prefix);
+          let server = new HugoServer(row.id, row.prefix, row.language);
           servers.push(server);
         }
       });
