@@ -43,7 +43,11 @@ class HugoNotificationController {
       await checkYouTube();
       await checkTwitch();
       await checkInstagram();
-      await sleep(this.waitTime);
+      var min = 0;
+      var max = this.waitTime;
+      var newWaitTime = this.waitTime + (Math.random() * (max - min) + min);
+      logger.log(`Waiting ${newWaitTime} until next request`)
+      await sleep(newWaitTime); 
     }
   }
 

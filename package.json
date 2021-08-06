@@ -20,7 +20,7 @@
     "sqlite3": "^5.0.2",
     "tiktok-scraper": "^1.4.34",
     "youtube-sr": "^4.1.7",
-    "youtube.ts": "^0.2.0",
+    "youtube.ts": "^0.2.2",
     "ytdl-core": "^4.9.1"
   },
   "devDependencies": {

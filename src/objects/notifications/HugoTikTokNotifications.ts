@@ -19,8 +19,19 @@ async function checkTikTok(): Promise<void> {
       "tiktok"
     );
     for (let notification of notifications) {
+      logger.debug(notification.place)
+      const min = 111111;
+      const max = 99999999999;
+      const sessionIdPart1 = Math.round(Math.random() * (max - min) + min);
+      const sessionIdPart2 = Math.round(Math.random() * (max - min) + min);
+      const sessionId = `asd${sessionIdPart1}1asd${sessionIdPart2}dw2`;
+
+      logger.log(`Requesting with session id ${sessionId}`)
       const posts = await TikTokScraper.user(notification.place, {
         number: 1,
+        sessionList: [
+          `sid_tt=${sessionId}`,
+        ],
       }).catch(() => {
         resolve();
       });
@@ -28,7 +39,9 @@ async function checkTikTok(): Promise<void> {
         resolve();
         return;
       }
+      logger.debug(posts)
       const video = posts.collector[0];
+      logger.debug(video);
       if (video) {
         if (video.id != notification.last) {
           const channel = await HugoClient.channels.fetch(notification.channel);
