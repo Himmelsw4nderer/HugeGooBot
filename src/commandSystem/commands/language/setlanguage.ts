@@ -26,10 +26,10 @@ command.execute = async (message, content) => {
     content = content?.substr(8);
     if (message.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
       if (content) {
-        await DatabaseController.changeLanguage(
+        /*await DatabaseController.changeLanguage(
           message.guild?.id ?? "",
           content
-        );
+        );*/
         logger.log("Command sucessfully executed");
         resolve(true);
         return;

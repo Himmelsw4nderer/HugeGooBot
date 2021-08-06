@@ -20,11 +20,7 @@ async function checkTikTok(): Promise<void> {
     );
     for (let notification of notifications) {
       logger.debug(notification.place)
-      const min = 111111;
-      const max = 99999999999;
-      const sessionIdPart1 = Math.round(Math.random() * (max - min) + min);
-      const sessionIdPart2 = Math.round(Math.random() * (max - min) + min);
-      const sessionId = `asd${sessionIdPart1}1asd${sessionIdPart2}dw2`;
+      const sessionId = `cbd0d890f6ac11eb9a030242ac130003`;
 
       logger.log(`Requesting with session id ${sessionId}`)
       const posts = await TikTokScraper.user(notification.place, {
